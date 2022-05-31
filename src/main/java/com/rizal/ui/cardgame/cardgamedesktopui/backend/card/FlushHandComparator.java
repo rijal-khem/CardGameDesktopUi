@@ -30,7 +30,7 @@ public class FlushHandComparator implements Comparator<Hand> {
             return -1;
         }else if(o1.isSameColor() && !o2.isTrail() && !o2.isDoubleRun() && !o2.isRun() && !o2.isSameColor()){
             return -1;
-        }else if (o1.isPair() && !o2.isTrail() && !o2.isDoubleRun() && !o2.isRun() && !o2.isSameColor() && o2.isPair()){
+        }else if (o1.isPair() && !o2.isTrail() && !o2.isDoubleRun() && !o2.isRun() && !o2.isSameColor() && !o2.isPair()){
             return -1;
         }
         return 1;
