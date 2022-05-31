@@ -30,10 +30,12 @@ public class Card implements Comparable<Card>{
 
     private Face face;
     private Suits suits;
+    private String imageLocation;
 
     public Card(Face face, Suits suits){
         this.face = face;
         this.suits = suits;
+        setImageLocation();
     }
 
 
@@ -45,6 +47,16 @@ public class Card implements Comparable<Card>{
         return suits;
     }
 
+    //this is to get path of the image for card, later we will use this path to display in ui.
+
+
+    public void setImageLocation() {
+        imageLocation = CardImageUtil.getCardLocation(face,suits);
+    }
+
+    public String getImageLocation(){
+        return imageLocation;
+    }
 
     /*
     * This implementation of comparable is for descending order, higher value card will come first
