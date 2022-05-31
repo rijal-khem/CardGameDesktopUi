@@ -3,8 +3,10 @@ package com.rizal.ui.cardgame.cardgamedesktopui.backend.card.player;
 
 import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.FlushHandComparator;
 import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.Hand;
+import javafx.collections.ObservableList;
 import javafx.scene.image.ImageView;
 
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -44,7 +46,7 @@ public class Player implements Comparable<Player> {
     }
 
     public void setListImageView(List<ImageView> listImageView) {
-        this.listCardsImageView = listCardsImageView;
+        this.listCardsImageView = listImageView;
     }
 
     public Hand getHand() {
@@ -53,6 +55,9 @@ public class Player implements Comparable<Player> {
 
     public void setHand(Hand hand) {
         this.hand = hand;
+    }
+    public void sortHand(){
+        Collections.sort(hand.getCards());
     }
 
     @Override

@@ -12,13 +12,13 @@ import java.util.List;
 
 public class Dealer {
 
-    List<Card> newDeck;
+
 
     List<Player> players;
     List<Card>  currentDeck;
 
     public Dealer(List<Card> newDeck, List<Player> players){
-        this.newDeck = newDeck;
+        this.currentDeck = newDeck;
         this.players = players;
     }
 
@@ -27,8 +27,7 @@ public class Dealer {
     }
 
     public void shuffleCurrentDeck(){
-        if(currentDeck==null){
-            currentDeck = newDeck;
+        if(currentDeck!=null){
             //generating the random int to shuffles that many times.
             int shuffleparam = (int) Math.floor(Math.random()*9);
             for(int i=0;i<shuffleparam;i++){
@@ -37,16 +36,32 @@ public class Dealer {
         }
     }
 
-    public Card dealCardFromCurrentDeck(){
+
+    public void dealCardsToPlayers(){
+        for(int i=0;i<3;i++){
+            for(Player player:players){
+                player.getHand().addCardtoHand(dealCardFromCurrentDeck());
+            }
+        }
+    }
+
+    private Card dealCardFromCurrentDeck(){
        if(currentDeck!=null){
-         return currentDeck.get(0);
+         return currentDeck.remove(0);
        }
        return null;
     }
 
-    public void dealCardsToPlayer(){
 
+    public void clearPreviousCardsFromPlayer() {
+        //beforeClearing the cards from player we need to add it back to currentDeck
+        for(Player player:players){
+            for(Card card: player.getHand().getCards()){
+                currentDeck.add(card);
+            }
+        }
+
+        //clearing the cards from players hand/ be careful in multithreading and  when list is null/cleared garbage coollector might kill the object
+        players.forEach(player -> player.getHand().getCards().clear());
     }
-
-
 }
