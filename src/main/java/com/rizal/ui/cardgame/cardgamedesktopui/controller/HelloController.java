@@ -1,4 +1,4 @@
-package com.rizal.ui.cardgame.cardgamedesktopui;
+package com.rizal.ui.cardgame.cardgamedesktopui.controller;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
