@@ -1,15 +1,23 @@
 package com.rizal.ui.cardgame.cardgamedesktopui.controller;
 
+import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.CardShowUtility;
+import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.Constants;
+import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.FLushGame;
 import com.rizal.ui.cardgame.cardgamedesktopui.backend.card.player.Player;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.ResourceBundle;
 
 
-public class GameViewController {
+public class GameViewController implements Initializable {
 
     @FXML
     private Button blindButtonPlayer;
@@ -81,6 +89,14 @@ public class GameViewController {
     private List<ImageView> playerCardImageViewNames;
     private List<ImageView> computerCardImageViewNames;
 
+    FLushGame fLushGame;
+
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        setGame();
+        showData();
+    }
 
 
 
@@ -99,22 +115,34 @@ public class GameViewController {
         players = new ArrayList<>();
         players.add(userPlayer);
         players.add(computerPlayer);
-
-
+        fLushGame= new FLushGame(players);
+        imageViewUtility();
     }
 
     private void showFaceDownCard(){
+       Image faceDownImg = CardShowUtility.cardShowforLocationString(Constants.IMAGE_LOCATION_PATH+Constants.LINUX_PATH_SEPARATOR+Constants.FACE_DOWN_CARD);
 
-
+        System.out.println();
+       for(Player player:players){
+           player.getListImageView().forEach(imageView -> imageView.setImage(faceDownImg));
+       }
 
     }
 
     public void play() {
+        clearPreviousCardsFromPlayers();
+        play.setDisable(true);
         roundCountInt = roundCountInt+1;
+
+        fLushGame.shuffleDeck();
+        fLushGame.dealCardsToPlayers();
+        showFaceDownCard();
 
     }
 
-
+    private void clearPreviousCardsFromPlayers() {
+        fLushGame.clearPreviousCardsfromPlayers();
+    }
 
 
     public void see(){
@@ -123,6 +151,13 @@ public class GameViewController {
     }
 
     public void show(){
+        players.forEach(Player::sortHand);
+        players.forEach(player->cardViewForPlayer(player));
+        Player winnerPlayer = fLushGame.getWinner();
+        fLushGame.updateScore(winnerPlayer);
+        winnerName.setText(winnerPlayer.getName());
+        showData();
+        play.setDisable(false);
 
     }
 
@@ -150,9 +185,9 @@ public class GameViewController {
 
 
     private void  cardViewForPlayer(Player player){
-
-
-
+        for(int i= 0; i<player.getHand().getCards().size();i++){
+            player.getListImageView().get(i).setImage(CardShowUtility.cardShowforLocationString(player.getHand().getCards().get(i).getImageLocation()));
+        }
     }
 
     public void imageViewUtility(){
@@ -161,7 +196,6 @@ public class GameViewController {
         playerCardImageViewNames.add(playerCard2);
         playerCardImageViewNames.add(playerCard3);
         userPlayer.setListImageView(playerCardImageViewNames);
-
         computerCardImageViewNames= new ArrayList<>();
         computerCardImageViewNames.add(computerCard1);
         computerCardImageViewNames.add(computerCard2);
@@ -169,6 +203,7 @@ public class GameViewController {
         computerPlayer.setListImageView(computerCardImageViewNames);
 
     }
+
 
 
 }

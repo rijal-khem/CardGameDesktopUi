@@ -14,7 +14,7 @@
             <children>
                 <ImageView fitHeight="32.0" fitWidth="71.0" layoutX="4.0" layoutY="3.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../imgs/logo.png" />
+                        <Image url="@../../../../../imgs/logo.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="76.0" layoutY="14.0" text="Round Count" />
@@ -44,7 +44,7 @@
                 <ImageView fx:id="computerCard1" fitHeight="91.0" fitWidth="63.0" layoutX="209.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" />
                 <ImageView fx:id="deckImage" fitHeight="119.0" fitWidth="88.0" layoutX="319.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@../../../imgs/cardsImgs/deck.png" />
+                        <Image url="@../../../../../imgs/cardsImgs/deck.png" />
                     </image>
                 </ImageView>
                 <Label layoutX="319.0" layoutY="60.0" text="Deck State" />
