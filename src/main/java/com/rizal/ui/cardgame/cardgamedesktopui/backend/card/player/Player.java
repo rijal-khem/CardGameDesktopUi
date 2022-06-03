@@ -20,6 +20,8 @@ public class Player implements Comparable<Player> {
     private List<ImageView> listCardsImageView;
     private Hand hand;
 
+    private int balanceAmount;
+
     public Player(String name){
         this.name = name;
     }
@@ -58,6 +60,15 @@ public class Player implements Comparable<Player> {
     }
     public void sortHand(){
         Collections.sort(hand.getCards());
+    }
+
+
+    public int getBalanceAmount() {
+        return balanceAmount;
+    }
+
+    public void setBalanceAmount(int balanceAmount) {
+        this.balanceAmount = balanceAmount;
     }
 
     @Override
