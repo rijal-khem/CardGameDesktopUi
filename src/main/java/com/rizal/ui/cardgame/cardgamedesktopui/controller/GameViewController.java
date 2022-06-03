@@ -79,6 +79,15 @@ public class GameViewController implements Initializable {
     @FXML
     private Label winnerName;
 
+    @FXML
+    private Label computerBalanceAmount;
+
+    @FXML
+    private Label userPlayerBalanceAmount;
+
+    @FXML
+    private Label betPoolAmount;
+
     private int roundCountInt = 0;
 
 
@@ -88,6 +97,7 @@ public class GameViewController implements Initializable {
     private List<Player> players;
     private List<ImageView> playerCardImageViewNames;
     private List<ImageView> computerCardImageViewNames;
+    private int betPoolAmountTracker=0;
 
     private Label  gameAmount;
 
@@ -109,6 +119,10 @@ public class GameViewController implements Initializable {
         computerScore.setText(String.valueOf(computerPlayer.getScore()));
         player2Name.setText(userPlayer.getName());
         player1Name.setText(computerPlayer.getName());
+        userPlayerBalanceAmount.setText(String.valueOf(userPlayer.getBalanceAmount()));
+        computerBalanceAmount.setText(String.valueOf(computerPlayer.getBalanceAmount()));
+        betPoolAmount.setText(String.valueOf(betPoolAmountTracker));
+
     }
 
     private void setGame(){
@@ -117,6 +131,7 @@ public class GameViewController implements Initializable {
         players = new ArrayList<>();
         players.add(userPlayer);
         players.add(computerPlayer);
+        setBalanceAmount(players);
         fLushGame= new FLushGame(players);
         imageViewUtility();
     }
@@ -136,7 +151,6 @@ public class GameViewController implements Initializable {
         clearPreviousCardsFromPlayers();
         play.setDisable(true);
         roundCountInt = roundCountInt+1;
-
         fLushGame.shuffleDeck();
         fLushGame.dealCardsToPlayers();
         showFaceDownCard();
@@ -221,6 +235,10 @@ public class GameViewController implements Initializable {
         computerCardImageViewNames.add(computerCard3);
         computerPlayer.setListImageView(computerCardImageViewNames);
 
+    }
+
+    private void setBalanceAmount(List<Player> players){
+        players.forEach(player -> player.setBalanceAmount(500));
     }
 
 
