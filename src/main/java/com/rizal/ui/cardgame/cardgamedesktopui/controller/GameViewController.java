@@ -89,6 +89,8 @@ public class GameViewController implements Initializable {
     private List<ImageView> playerCardImageViewNames;
     private List<ImageView> computerCardImageViewNames;
 
+    private Label  gameAmount;
+
     FLushGame fLushGame;
 
 
@@ -130,6 +132,7 @@ public class GameViewController implements Initializable {
     }
 
     public void play() {
+        enableAllButton();
         clearPreviousCardsFromPlayers();
         play.setDisable(true);
         roundCountInt = roundCountInt+1;
@@ -138,6 +141,13 @@ public class GameViewController implements Initializable {
         fLushGame.dealCardsToPlayers();
         showFaceDownCard();
 
+    }
+
+    private void enableAllButton() {
+        showButtonPlayer.setDisable(false);
+        blindButtonPlayer.setDisable(false);
+        raisePlayerButton.setDisable(false);
+        seeButtonPlayer.setDisable(false);
     }
 
     private void clearPreviousCardsFromPlayers() {
@@ -168,6 +178,15 @@ public class GameViewController implements Initializable {
     }
 
     public void fold(){
+        showButtonPlayer.setDisable(true);
+        blindButtonPlayer.setDisable(true);
+        raisePlayerButton.setDisable(true);
+        seeButtonPlayer.setDisable(true);
+        winnerName.setText(computerPlayer.getName());
+        computerPlayer.setScore(computerPlayer.getScore()+1);
+        showData();
+        play.setDisable(false);
+
         System.out.println("fold button hit");
 
     }
